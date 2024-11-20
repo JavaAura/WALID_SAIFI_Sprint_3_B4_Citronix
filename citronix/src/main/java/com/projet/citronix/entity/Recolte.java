@@ -1,7 +1,6 @@
 package com.projet.citronix.entity;
 
-import com.Citronix.app.entity.enums.Saison;
-
+import com.projet.citronix.entity.enums.Saison;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -29,10 +28,10 @@ public class Recolte {
     private double quantiteTotale;
 
 
-    @OneToMany(mappedBy = "recolte", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "recolte", cascade = CascadeType.ALL)
     private List<DetailRecolte> detailsRecolte;
 
-    @OneToMany(mappedBy = "recolte", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "recolte", cascade = CascadeType.ALL)
     private List<Vente> ventes;
 
 

@@ -1,4 +1,4 @@
-package com.Citronix.app.entity.enums;
+package com.projet.citronix.entity.enums;
 
 public enum Saison {
     HIVER,

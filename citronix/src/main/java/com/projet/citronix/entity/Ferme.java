@@ -20,7 +20,7 @@ public class Ferme {
     private double superficie;
     private LocalDate dateCreation;
 
-    @OneToMany(mappedBy = "ferme", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "ferme", cascade = CascadeType.ALL)
     private List<Champ> champs;
 
 }

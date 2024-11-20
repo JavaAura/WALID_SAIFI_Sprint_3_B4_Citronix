@@ -30,7 +30,6 @@ public class Vente {
     @JoinColumn(name = "recolte_id", nullable = false)
     private Recolte recolte;
 
-    // Méthode calculant le revenu total de la vente
     public double getRevenu() {
         return this.quantite * this.prixUnitaire;
     }

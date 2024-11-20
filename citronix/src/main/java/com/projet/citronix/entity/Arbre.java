@@ -25,7 +25,7 @@ public class Arbre {
     @JoinColumn(name = "champ_id", nullable = false)
     private Champ champ;
 
-    @OneToMany(mappedBy = "arbre", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "arbre", cascade = CascadeType.ALL)
     private List<DetailRecolte> detailsRecolte;
 
     public void calculerAge() {
