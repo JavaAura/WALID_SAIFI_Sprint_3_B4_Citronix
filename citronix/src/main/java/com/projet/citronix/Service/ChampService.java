@@ -11,6 +11,10 @@ import com.projet.citronix.entity.Ferme;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.validation.Valid;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class ChampService {
 
@@ -23,7 +27,7 @@ public class ChampService {
     @Autowired
     private ChampMapper champMapper;
 
-    public ChampResponseDTO ajouterChamp(ChampRequestDTO champRequestDTO) {
+    public ChampResponseDTO ajouterChamp(@Valid ChampRequestDTO champRequestDTO) {
         Ferme ferme = fermeRepository.findById(champRequestDTO.getFermeId())
                 .orElseThrow(() -> new IllegalArgumentException("Ferme introuvable avec l'ID : " + champRequestDTO.getFermeId()));
 
@@ -45,7 +49,7 @@ public class ChampService {
     }
 
 
-    public ChampResponseDTO updateChamp(Long id, ChampRequestDTO champRequestDTO) {
+    public ChampResponseDTO updateChamp(Long id, @Valid ChampRequestDTO champRequestDTO) {
         Champ existingChamp = champRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Champ introuvable avec l'ID : " + id));
 
@@ -78,6 +82,15 @@ public class ChampService {
         champRepository.delete(champ);
     }
 
+    public List<ChampResponseDTO> getAllChamps() {
+        List<Champ> champs = champRepository.findAll();
 
+        return champs.stream()
+                .map(champ -> champMapper.toResponseDTO(champ))
+                .collect(Collectors.toList());
+    }
 
 }
+
+
+
