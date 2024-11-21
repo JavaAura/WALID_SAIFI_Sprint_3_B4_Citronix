@@ -28,4 +28,31 @@ public class ChampController {
         }
     }
 
+
+    @PutMapping("/modifier/{id}")
+    public ResponseEntity<?> updateChamp(@PathVariable Long id, @RequestBody ChampRequestDTO champRequestDTO) {
+        try {
+            ChampResponseDTO champResponseDTO = champService.updateChamp(id, champRequestDTO);
+            return new ResponseEntity<>(champResponseDTO, HttpStatus.OK);
+        } catch (IllegalArgumentException ex) {
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        } catch (SuperficieExceededException ex) {
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+        } catch (Exception ex) {
+            return new ResponseEntity<>("Une erreur interne est survenue. Veuillez réessayer plus tard.", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @DeleteMapping("/supprimer/{id}")
+    public ResponseEntity<?> deleteChamp(@PathVariable Long id) {
+        try {
+            champService.deleteChamp(id);
+            return new ResponseEntity<>("Champ supprimé avec succès.", HttpStatus.OK);
+        } catch (IllegalArgumentException ex) {
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        } catch (Exception ex) {
+            return new ResponseEntity<>("Une erreur interne est survenue. Veuillez réessayer plus tard.", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }
