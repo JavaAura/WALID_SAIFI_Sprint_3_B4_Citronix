@@ -49,7 +49,7 @@ public class ChampService {
     }
 
 
-    public ChampResponseDTO updateChamp(Long id, @Valid ChampRequestDTO champRequestDTO) {
+    public ChampResponseDTO updateChamp(Long id,  ChampRequestDTO champRequestDTO) {
         Champ existingChamp = champRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Champ introuvable avec l'ID : " + id));
 
@@ -58,7 +58,7 @@ public class ChampService {
 
         double superficieTotaleFerme = ferme.getSuperficie();
         double superficieTotaleChamps = ferme.getChamps().stream()
-                .filter(champ -> !champ.getId().equals(id)) // Exclure le champ actuel
+                .filter(champ -> !champ.getId().equals(id))
                 .mapToDouble(Champ::getSuperficie)
                 .sum();
 

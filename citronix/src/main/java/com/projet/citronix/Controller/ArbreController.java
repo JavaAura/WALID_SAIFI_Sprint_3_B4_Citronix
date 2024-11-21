@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @RestController
@@ -17,13 +18,22 @@ public class ArbreController {
     @Autowired
     private ArbreService arbreService;
 
-    @PostMapping("/ajouter")
-    public ResponseEntity<ArbreResponseDTO> ajouterArbre(@RequestBody ArbreRequestDTO arbreRequestDTO) {
-
+    @PostMapping(value = "/ajouter")
+    public ArbreResponseDTO ajouterArbre(@RequestBody ArbreRequestDTO arbreRequestDTO) {
         ArbreResponseDTO arbreResponseDTO = arbreService.ajouterArbre(arbreRequestDTO);
-
-        return new ResponseEntity<>(arbreResponseDTO, HttpStatus.CREATED);
+        return arbreResponseDTO;
     }
+
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ArbreResponseDTO> updateArbre(
+            @PathVariable Long id,
+            @RequestBody ArbreRequestDTO arbreRequestDTO) {
+
+            ArbreResponseDTO updatedArbre = arbreService.updateArbre(id, arbreRequestDTO);
+            return ResponseEntity.ok(updatedArbre);
+    }
+
 
 
 }

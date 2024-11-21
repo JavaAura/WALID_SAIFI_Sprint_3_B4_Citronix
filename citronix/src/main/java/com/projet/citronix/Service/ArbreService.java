@@ -9,6 +9,8 @@ import com.projet.citronix.entity.Arbre;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class ArbreService {
 
@@ -22,7 +24,24 @@ public class ArbreService {
         Arbre arbre = arbreMapper.toEntity(arbreRequestDTO);
         arbre.getAges();
         Arbre savedArbre = arbreRepository.save(arbre);
+
         return arbreMapper.toArbreRequestDTO(savedArbre);
     }
+
+
+    public ArbreResponseDTO updateArbre(Long id, ArbreRequestDTO arbreRequestDTO) {
+        Optional<Arbre> existingArbreOpt = arbreRepository.findById(id);
+            Arbre existingArbre = existingArbreOpt.get();
+            Arbre arbreToUpdate = arbreMapper.toEntity(arbreRequestDTO);
+            existingArbre.setDatePlantation(arbreToUpdate.getDatePlantation());
+            existingArbre.setEtatProductivite(arbreToUpdate.getEtatProductivite());
+            existingArbre.setChamp(arbreToUpdate.getChamp());
+            Arbre updatedArbre = arbreRepository.save(existingArbre);
+            return arbreMapper.toArbreRequestDTO(updatedArbre);
+
+    }
+
+
+
 
 }
