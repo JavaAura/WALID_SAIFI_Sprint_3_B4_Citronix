@@ -17,19 +17,26 @@ public class Arbre {
 
     private LocalDate datePlantation;
 
+
+    @Transient
     private int age;
 
     private Double etatProductivite;
 
     @ManyToOne
-    @JoinColumn(name = "champ_id", nullable = false)
+    @JoinColumn(name = "champ_id")
     private Champ champ;
 
     @OneToMany(mappedBy = "arbre", cascade = CascadeType.ALL)
     private List<DetailRecolte> detailsRecolte;
 
-    public void calculerAge() {
-        this.age = LocalDate.now().getYear() - this.datePlantation.getYear();
+    public void getAges() {
+        if (this.datePlantation != null) {
+            this.age = LocalDate.now().getYear() - this.datePlantation.getYear();
+        } else {
+            this.age = 0;
+        }
     }
+
 
 }
