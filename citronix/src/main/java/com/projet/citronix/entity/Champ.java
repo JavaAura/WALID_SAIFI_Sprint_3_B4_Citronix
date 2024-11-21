@@ -19,8 +19,8 @@ public class Champ {
 
     @Column(nullable = false)
     private double superficie;
-    @ManyToOne
-    @JoinColumn(name = "ferme_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ferme_id")
     private Ferme ferme;
 
     @OneToMany(mappedBy = "champ", cascade = CascadeType.ALL)

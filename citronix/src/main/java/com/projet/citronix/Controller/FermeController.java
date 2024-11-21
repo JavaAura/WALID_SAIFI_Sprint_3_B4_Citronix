@@ -1,6 +1,7 @@
 package com.projet.citronix.Controller;
 
-import com.projet.citronix.Dto.FermeDTO;
+import com.projet.citronix.Dto.Request.FermeRequestDTO;
+import com.projet.citronix.Dto.Response.FermeResponseDTO;
 import com.projet.citronix.Service.FermeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,8 +22,8 @@ public class FermeController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<FermeDTO> getFermeById(@PathVariable Long id) {
-        FermeDTO ferme = fermeService.getFermeById(id);
+    public ResponseEntity<FermeResponseDTO> getFermeById(@PathVariable Long id) {
+        FermeResponseDTO ferme = fermeService.getFermeById(id);
         if (ferme != null) {
             return ResponseEntity.ok(ferme);
         }
@@ -30,10 +31,10 @@ public class FermeController {
     }
 
     @GetMapping
-    public ResponseEntity<List<FermeDTO>> getAllFermes(
+    public ResponseEntity<List<FermeResponseDTO>> getAllFermes(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "5") int size) {
-        List<FermeDTO> fermes = fermeService.getAllFermes(page, size);
+        List<FermeResponseDTO> fermes = fermeService.getAllFermes(page, size);
         if (fermes.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
@@ -41,26 +42,27 @@ public class FermeController {
     }
 
     @PostMapping
-    public ResponseEntity<?> addFerme(@Valid @RequestBody FermeDTO fermeDTO, BindingResult bindingResult) {
+    public ResponseEntity<?> addFerme(@Valid @RequestBody FermeRequestDTO fermeRequestDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            // Return a Bad Request response with validation error details
             return ResponseEntity.badRequest().body(bindingResult.getAllErrors());
         }
-        FermeDTO savedFerme = fermeService.addFerme(fermeDTO);
+        FermeResponseDTO savedFerme = fermeService.addFerme(fermeRequestDTO);
         return new ResponseEntity<>(savedFerme, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateFerme(@PathVariable Long id, @Valid @RequestBody FermeDTO fermeDTO, BindingResult bindingResult) {
+    public ResponseEntity<?> updateFerme(
+            @PathVariable Long id,
+            @Valid @RequestBody FermeRequestDTO fermeRequestDTO,
+            BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            // Return a Bad Request response with validation error details
             return ResponseEntity.badRequest().body(bindingResult.getAllErrors());
         }
-        FermeDTO updatedFerme = fermeService.updateFerme(id, fermeDTO);
+        FermeResponseDTO updatedFerme = fermeService.updateFerme(id, fermeRequestDTO);
         if (updatedFerme != null) {
-            return new ResponseEntity<>(updatedFerme, HttpStatus.OK);
+            return ResponseEntity.ok(updatedFerme);
         } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return ResponseEntity.notFound().build();
         }
     }
 

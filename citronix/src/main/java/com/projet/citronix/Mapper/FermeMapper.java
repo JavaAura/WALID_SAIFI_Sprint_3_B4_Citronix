@@ -1,15 +1,14 @@
 package com.projet.citronix.Mapper;
 
-import com.projet.citronix.Dto.FermeDTO;
+import com.projet.citronix.Dto.Request.FermeRequestDTO;
+import com.projet.citronix.Dto.Response.FermeResponseDTO;
 import com.projet.citronix.entity.Ferme;
 import org.mapstruct.Mapper;
-
-
 
 @Mapper(componentModel = "spring")
 public interface FermeMapper {
 
-    FermeDTO toDTO(Ferme ferme);
+    FermeResponseDTO toResponseDTO(Ferme ferme);
 
-    Ferme toEntity(FermeDTO fermeDTO);
+    Ferme toEntity(FermeRequestDTO fermeRequestDTO);
 }
