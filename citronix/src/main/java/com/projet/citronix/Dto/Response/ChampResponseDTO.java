@@ -12,6 +12,6 @@ import java.util.List;
         private Long id;
         private double superficie;
         private String nomFerme;
-        private List<Arbre> arbres;
+        private List<ArbreResponseDTO> arbres;
     }
 

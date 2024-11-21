@@ -41,7 +41,21 @@ public class ArbreService {
 
     }
 
+    public boolean deleteArbre(Long id) {
+        Optional<Arbre> existingArbreOpt = arbreRepository.findById(id);
 
+        if (existingArbreOpt.isPresent()) {
+            arbreRepository.deleteById(id);
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 
 }
+
+
+
+
+

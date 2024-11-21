@@ -27,7 +27,6 @@ public class Recolte {
     @Column(nullable = false)
     private double quantiteTotale;
 
-
     @OneToMany(mappedBy = "recolte", cascade = CascadeType.ALL)
     private List<DetailRecolte> detailsRecolte;
 

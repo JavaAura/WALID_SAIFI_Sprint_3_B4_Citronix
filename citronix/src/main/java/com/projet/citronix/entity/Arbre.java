@@ -18,7 +18,6 @@ public class Arbre {
     private LocalDate datePlantation;
 
 
-    @Transient
     private int age;
 
     private Double etatProductivite;
@@ -35,6 +34,17 @@ public class Arbre {
             this.age = LocalDate.now().getYear() - this.datePlantation.getYear();
         } else {
             this.age = 0;
+        }
+    }
+
+    public double calculateAnnualProductivity() {
+        getAges() ;
+        if (age < 3) {
+            return 2.5;
+        } else if (age <= 10) {
+            return 12.0;
+        } else {
+            return 20.0;
         }
     }
 
