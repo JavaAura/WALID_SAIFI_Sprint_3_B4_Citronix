@@ -24,8 +24,8 @@ public class Recolte {
     @Column(nullable = false)
     private LocalDate dateRecolte;
 
-    @Column(nullable = false)
-    private double quantiteTotale;
+    @Column
+    private double quantiteTotale = 0.0;
 
     @OneToMany(mappedBy = "recolte", cascade = CascadeType.ALL)
     private List<DetailRecolte> detailsRecolte;
