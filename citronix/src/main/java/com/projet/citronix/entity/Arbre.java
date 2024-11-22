@@ -29,7 +29,9 @@ public class Arbre {
     @OneToMany(mappedBy = "arbre", cascade = CascadeType.ALL)
     private List<DetailRecolte> detailsRecolte;
 
-    public void getAges() {
+
+
+    public void updateAge() {
         if (this.datePlantation != null) {
             this.age = LocalDate.now().getYear() - this.datePlantation.getYear();
         } else {
@@ -37,8 +39,8 @@ public class Arbre {
         }
     }
 
-    public double calculateAnnualProductivity() {
-        getAges() ;
+    public double calculateEtatProductivite() {
+        updateAge();
         if (age < 3) {
             return 2.5;
         } else if (age <= 10) {
@@ -47,6 +49,13 @@ public class Arbre {
             return 20.0;
         }
     }
+
+    public void updateEtatProductivite() {
+        this.etatProductivite = calculateEtatProductivite();
+    }
+
+
+
 
 
 }

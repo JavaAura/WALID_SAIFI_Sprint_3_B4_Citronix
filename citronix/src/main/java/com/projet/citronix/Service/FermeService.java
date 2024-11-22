@@ -61,12 +61,15 @@ public class FermeService {
         return "Ferme non trouvée";
     }
 
-    // Récupérer toutes les fermes avec pagination
     public List<FermeResponseDTO> getAllFermes(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<Ferme> fermesPage = fermeRepository.findAll(pageable);
         return fermesPage.stream()
                 .map(fermeMapper::toResponseDTO)
                 .collect(Collectors.toList());
+    }
+
+    public long getNombreChampsParFerme(Long fermeId) {
+        return fermeRepository.countChampsByFermeId(fermeId);
     }
 }
