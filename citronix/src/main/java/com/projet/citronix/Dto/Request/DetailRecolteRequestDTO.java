@@ -1,7 +1,12 @@
 package com.projet.citronix.Dto.Request;
 import com.projet.citronix.entity.Recolte;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class DetailRecolteRequestDTO {
 
     private Long id;
@@ -10,6 +15,6 @@ public class DetailRecolteRequestDTO {
 
     private Long  idArbre;
 
-    private Recolte idRecolte;
+    private Long idRecolte;
 
 }
