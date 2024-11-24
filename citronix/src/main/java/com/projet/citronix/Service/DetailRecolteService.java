@@ -28,6 +28,13 @@ public class DetailRecolteService {
     public DetailRecolteReponseDTO Create_DetailRecolte(DetailRecolteRequestDTO detailRecolteRequestDTO) throws RecolteNonTrouveeException {
 
         DetailRecolte detailRecolte = detailRecolteMapper.toEntity(detailRecolteRequestDTO);
+        if (!recolteRepository.existsById(detailRecolte.getRecolte().getId())) {
+            throw new RecolteNonTrouveeException(detailRecolte.getRecolte().getId());
+        }
+        if (!arbreRepository.existsById(detailRecolte.getArbre().getId())) {
+            throw new ArbreNonTrouveException("L'arbre avec l'ID " + detailRecolte.getArbre().getId() + " n'a pas été trouvé.");
+        }
+
         detailRecolte = detailRecolteRepository.save(detailRecolte);
         recolteRepository.ajouterQuantite(detailRecolte.getRecolte().getId(), detailRecolte.getQuantite());
         return detailRecolteMapper.toResponseDTO(detailRecolte);

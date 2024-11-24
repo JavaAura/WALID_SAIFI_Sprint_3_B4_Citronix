@@ -31,6 +31,7 @@ public class Vente {
     private Recolte recolte;
 
     public double getRevenu() {
+
         return this.quantite * this.prixUnitaire;
     }
 }
