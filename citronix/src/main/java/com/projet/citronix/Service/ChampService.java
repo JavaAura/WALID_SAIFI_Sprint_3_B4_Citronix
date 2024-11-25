@@ -1,6 +1,7 @@
 package com.projet.citronix.Service;
 import com.projet.citronix.Dto.Request.ChampRequestDTO;
 import com.projet.citronix.Dto.Response.ChampResponseDTO;
+import com.projet.citronix.Exception.NombreDeChampsMaximumDepasseException;
 import com.projet.citronix.Exception.SuperficieExceededException;
 import com.projet.citronix.Mapper.ChampMapper;
 import com.projet.citronix.Repository.ChampRepository;
@@ -38,6 +39,12 @@ public class ChampService {
 
         if (champRequestDTO.getSuperficie() > (0.5 * superficieTotaleFerme)) {
             throw new SuperficieExceededException("La superficie du champ ne peut pas dépasser 50% de la superficie totale de la ferme.");
+        }
+
+        long nombreDeChamps = fermeRepository.countChampsByFermeId(champRequestDTO.getFermeId());
+
+        if (nombreDeChamps >= 10) {
+            throw new NombreDeChampsMaximumDepasseException("Une ferme ne peut contenir plus de 10 champs.");
         }
 
         Champ champ = champMapper.toEntity(champRequestDTO);
