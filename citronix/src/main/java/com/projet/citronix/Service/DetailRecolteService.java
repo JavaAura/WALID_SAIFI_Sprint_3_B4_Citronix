@@ -15,6 +15,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @AllArgsConstructor
 public class DetailRecolteService {
@@ -22,7 +24,6 @@ public class DetailRecolteService {
     private  final DetailRecolteRepository detailRecolteRepository;
     @Autowired
     private  final DetailRecolteMapper detailRecolteMapper;
-
     @Autowired
     private  final ArbreRepository arbreRepository;
     @Autowired
@@ -37,9 +38,12 @@ public class DetailRecolteService {
         if (!arbreRepository.existsById(detailRecolte.getArbre().getId())) {
             throw new ArbreNonTrouveException("L'arbre avec l'ID " + detailRecolte.getArbre().getId() + " n'a pas été trouvé.");
         }
-
-        detailRecolte = detailRecolteRepository.save(detailRecolte);
         recolteRepository.ajouterQuantite(detailRecolte.getRecolte().getId(), detailRecolte.getQuantite());
+
+         Optional<Recolte> recolte = recolteRepository.findById(detailRecolteRequestDTO.getIdRecolte());
+         detailRecolte.setRecolte(recolte.get());
+        detailRecolte = detailRecolteRepository.save(detailRecolte);
+
         return detailRecolteMapper.toResponseDTO(detailRecolte);
     }
 
@@ -70,7 +74,6 @@ public class DetailRecolteService {
         DetailRecolte existingDetailRecolte = detailRecolteRepository.findById(id).orElseThrow(() ->
                 new DetailRecolteNonTrouverException("Détail de récolte avec l'ID " + id + " non trouvé.")
         );
-
         detailRecolteRepository.delete(existingDetailRecolte);
     }
 

@@ -15,6 +15,13 @@ public interface RecolteRepository extends JpaRepository<Recolte, Long> {
 
     @Transactional
     @Modifying
+
     @Query("UPDATE Recolte r SET r.quantiteTotale = r.quantiteTotale + :quantite WHERE r.id = :id")
     void ajouterQuantite(Long id, double quantite);
+
+    @Transactional
+    @Modifying
+    @Query("UPDATE Recolte r SET r.quantiteTotale = r.quantiteTotale - :quantite WHERE r.id = :id")
+    void supprimerQuantite(Long id, double quantite);
+
 }

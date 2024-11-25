@@ -1,6 +1,7 @@
 package com.projet.citronix.Dto.Response;
 
 
+import com.projet.citronix.entity.Recolte;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,9 +15,6 @@ public class DetailRecolteReponseDTO {
 
     private double quantite;
 
-    private Long idArbre;
-
-    private Long idRecolte;
-
+    private Recolte recolte;
 
 }

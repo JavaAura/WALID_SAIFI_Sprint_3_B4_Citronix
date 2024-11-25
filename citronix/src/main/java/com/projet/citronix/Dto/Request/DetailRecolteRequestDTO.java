@@ -1,4 +1,5 @@
 package com.projet.citronix.Dto.Request;
+import com.projet.citronix.Dto.Response.RecolteResponseDTO;
 import com.projet.citronix.entity.Recolte;
 import lombok.AllArgsConstructor;
 import lombok.Data;
