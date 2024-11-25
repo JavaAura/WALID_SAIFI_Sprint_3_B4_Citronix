@@ -12,5 +12,5 @@ public class ArbreResponseDTO{
     private LocalDate datePlantation;
     private int age;
     private Double etatProductivite;
-    
+
 }
