@@ -12,6 +12,6 @@ public interface RecolteMapper {
     Recolte toEntity(RecolteRequestDTO requestDTO);
 
     @Mapping(target = "detailsRecolte", source = "detailsRecolte")
-    @Mapping(target = "ventes", source = "ventes")
+
     RecolteResponseDTO toResponseDTO(Recolte entity);
 }

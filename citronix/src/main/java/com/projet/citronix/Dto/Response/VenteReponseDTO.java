@@ -24,6 +24,6 @@ public class VenteReponseDTO {
 
     private  Double Revenu;
 
-    private Recolte recolte;
+
 
 }

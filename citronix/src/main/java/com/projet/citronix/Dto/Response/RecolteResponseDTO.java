@@ -24,5 +24,4 @@ public class RecolteResponseDTO {
 
     private List<DetailRecolte> detailsRecolte;
 
-    private List<Vente> ventes;
 }

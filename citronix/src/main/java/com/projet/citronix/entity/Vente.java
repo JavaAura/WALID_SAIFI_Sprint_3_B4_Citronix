@@ -26,7 +26,7 @@ public class Vente {
     @Column(nullable = false)
     private String client;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "recolte_id", nullable = false)
     private Recolte recolte;
 
