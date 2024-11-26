@@ -2,12 +2,13 @@ package com.projet.citronix.Service;
 
 import com.projet.citronix.Dto.Request.RecolteRequestDTO;
 import com.projet.citronix.Dto.Response.RecolteResponseDTO;
-import com.projet.citronix.Exception.MiseAJourRecolteException;
-import com.projet.citronix.Exception.RecolteNonTrouveeException;
-import com.projet.citronix.Exception.SuppressionRecolteException;
+import com.projet.citronix.Exception.*;
 import com.projet.citronix.Mapper.RecolteMapper;
+import com.projet.citronix.Repository.ChampRepository;
 import com.projet.citronix.Repository.RecolteRepository;
+import com.projet.citronix.entity.Champ;
 import com.projet.citronix.entity.Recolte;
+import com.projet.citronix.entity.enums.Saison;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,12 +22,19 @@ public class RecolteService {
     private final RecolteRepository recolteRepository;
     private final RecolteMapper recolteMapper;
 
+    private ChampRepository champRepository;
+
     public RecolteService(RecolteRepository recolteRepository, RecolteMapper recolteMapper) {
         this.recolteRepository = recolteRepository;
         this.recolteMapper = recolteMapper;
     }
 
+    private boolean isRecolteExistante(Champ champ, Saison saison) {
+        return recolteRepository.existsByChampAndSaison(champ, saison);
+    }
+
     public RecolteResponseDTO createRecolte(RecolteRequestDTO requestDTO) {
+
         Recolte recolte = recolteMapper.toEntity(requestDTO);
         recolte = recolteRepository.save(recolte);
         return recolteMapper.toResponseDTO(recolte);

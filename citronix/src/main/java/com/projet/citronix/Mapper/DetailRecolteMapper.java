@@ -15,7 +15,6 @@ public interface DetailRecolteMapper {
     @Mapping(target = "recolte.id", source = "idRecolte")
     DetailRecolte toEntity(DetailRecolteRequestDTO requestDTO);
 
-    @Mapping(target = "recolte", source = "recolte")
     @Mapping(target = "recolte.detailsRecolte", ignore = true)
     DetailRecolteReponseDTO toResponseDTO(DetailRecolte detailRecolte);
 

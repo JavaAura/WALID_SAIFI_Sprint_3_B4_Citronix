@@ -44,7 +44,7 @@ public class ChampService {
         long nombreDeChamps = fermeRepository.countChampsByFermeId(champRequestDTO.getFermeId());
 
         if (nombreDeChamps >= 10) {
-            throw new NombreDeChampsMaximumDepasseException("Une ferme ne peut contenir plus de 10 champs.");
+            throw new NombreDeChampsMaximumDepasseException("Une ferme ne peut contenir plus de 10 champs ! .");
         }
 
         Champ champ = champMapper.toEntity(champRequestDTO);
