@@ -1,5 +1,6 @@
 package com.projet.citronix.Repository;
 
+import com.projet.citronix.entity.Champ;
 import com.projet.citronix.entity.Recolte;
 import com.projet.citronix.entity.enums.Saison;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -19,9 +20,7 @@ public interface RecolteRepository extends JpaRepository<Recolte, Long> {
     @Query("UPDATE Recolte r SET r.quantiteTotale = r.quantiteTotale + :quantite WHERE r.id = :id")
     void ajouterQuantite(Long id, double quantite);
 
-    @Transactional
-    @Modifying
-    @Query("UPDATE Recolte r SET r.quantiteTotale = r.quantiteTotale - :quantite WHERE r.id = :id")
-    void supprimerQuantite(Long id, double quantite);
+    boolean existsByChampAndSaison(Champ champ, Saison saison);
+
 
 }

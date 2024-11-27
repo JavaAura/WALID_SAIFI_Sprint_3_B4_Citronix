@@ -5,5 +5,3 @@ public class PeriodePlantationInvalideException extends RuntimeException {
         super(message);
     }
 }
-
-

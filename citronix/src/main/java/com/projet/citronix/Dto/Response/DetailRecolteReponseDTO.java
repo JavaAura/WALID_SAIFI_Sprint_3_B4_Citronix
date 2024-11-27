@@ -16,6 +16,5 @@ public class DetailRecolteReponseDTO {
 
     private double quantite;
 
-    private Recolte recolte;
 
 }
