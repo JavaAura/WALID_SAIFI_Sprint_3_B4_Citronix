@@ -24,11 +24,5 @@ public class Ferme {
     private List<Champ> champs;
 
 
-    public double getSuperficieTotale() {
-        return champs.stream()
-                .mapToDouble(Champ::getSuperficie)
-                .sum();
-    }
-
 }
 

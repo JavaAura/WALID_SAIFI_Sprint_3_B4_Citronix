@@ -59,6 +59,8 @@
 		</dependency>
 
 
+
+
 		<dependency>
 			<groupId>org.mapstruct</groupId>
 			<artifactId>mapstruct</artifactId>
@@ -72,6 +74,19 @@
 			<version>1.5.3.Final</version>
 			<scope>provided</scope> <!-- Annotation Processor only -->
 		</dependency>
+
+
+
+
+
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-ui</artifactId>
+			<version>1.7.0</version>
+		</dependency>
+
+
+
 	</dependencies>
 
 	<build>

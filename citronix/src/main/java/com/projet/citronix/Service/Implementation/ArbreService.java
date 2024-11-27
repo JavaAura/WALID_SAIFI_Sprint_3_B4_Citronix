@@ -1,4 +1,4 @@
-package com.projet.citronix.Service;
+package com.projet.citronix.Service.Implementation;
 
 
 import com.projet.citronix.Dto.Request.ArbreRequestDTO;
@@ -10,18 +10,18 @@ import com.projet.citronix.Exception.PeriodePlantationInvalideException;
 import com.projet.citronix.Mapper.ArbreMapper;
 import com.projet.citronix.Repository.ArbreRepository;
 import com.projet.citronix.Repository.ChampRepository;
+import com.projet.citronix.Service.Interface.IArbreService;
 import com.projet.citronix.entity.Arbre;
 import com.projet.citronix.entity.Champ;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.Optional;
 
 @Service
-public class ArbreService {
+public class ArbreService implements IArbreService {
 
     @Autowired
     private ArbreRepository arbreRepository;
@@ -41,6 +41,7 @@ public class ArbreService {
     }
 
 
+    @Override
     public ArbreResponseDTO ajouterArbre(ArbreRequestDTO arbreRequestDTO) {
         LocalDate datePlantation = arbreRequestDTO.getDatePlantation();
 
@@ -74,6 +75,7 @@ public class ArbreService {
     }
 
 
+    @Override
     public ArbreResponseDTO updateArbre(Long id, ArbreRequestDTO arbreRequestDTO) {
 
         Arbre existingArbre = arbreRepository.findById(id)
@@ -96,6 +98,7 @@ public class ArbreService {
     }
 
 
+    @Override
     public boolean deleteArbre(Long id) {
         Optional<Arbre> existingArbreOpt = arbreRepository.findById(id);
 
@@ -106,7 +109,6 @@ public class ArbreService {
             return false;
         }
     }
-
 
 }
 

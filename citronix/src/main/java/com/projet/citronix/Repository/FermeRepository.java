@@ -11,4 +11,6 @@ public interface FermeRepository extends JpaRepository<Ferme,Long> {
     long countChampsByFermeId(@Param("fermeId") Long fermeId);
 
 
+
+
 }

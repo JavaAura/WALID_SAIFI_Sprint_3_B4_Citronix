@@ -2,7 +2,9 @@ package com.projet.citronix.Controller;
 
 import com.projet.citronix.Dto.Request.FermeRequestDTO;
 import com.projet.citronix.Dto.Response.FermeResponseDTO;
-import com.projet.citronix.Service.FermeService;
+import com.projet.citronix.Service.Implementation.FermeService;
+import com.projet.citronix.Service.Interface.IFermeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +17,9 @@ import java.util.List;
 @RequestMapping("/api/fermes")
 public class FermeController {
 
-    private final FermeService fermeService;
+
+    @Autowired
+    private final IFermeService fermeService;
 
     public FermeController(FermeService fermeService) {
         this.fermeService = fermeService;
@@ -45,19 +49,15 @@ public class FermeController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "5") int size) {
         List<FermeResponseDTO> fermes = fermeService.getAllFermes(page, size);
-        if (fermes.isEmpty()) {
-            return ResponseEntity.status(204).body(createMessage("Aucune ferme trouvée", null, 204));
-        }
         return ResponseEntity.ok(createMessage("Liste des fermes récupérée avec succès", fermes, 200));
     }
 
     @PostMapping
     public ResponseEntity<HashMap<String, Object>> addFerme(@Valid @RequestBody FermeRequestDTO fermeRequestDTO, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return ResponseEntity.badRequest().body(createMessage("Erreurs de validation", bindingResult.getAllErrors(), 400));
-        }
-        FermeResponseDTO savedFerme = fermeService.addFerme(fermeRequestDTO);
-        return ResponseEntity.status(201).body(createMessage("Ferme ajoutée avec succès", savedFerme, 201));
+
+            FermeResponseDTO savedFerme = fermeService.addFerme(fermeRequestDTO);
+            return ResponseEntity.status(201).body(createMessage("Ferme ajoutée avec succès", savedFerme, 201));
+
     }
 
     @PutMapping("/{id}")

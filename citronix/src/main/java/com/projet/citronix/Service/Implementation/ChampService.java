@@ -1,14 +1,17 @@
-package com.projet.citronix.Service;
+package com.projet.citronix.Service.Implementation;
 import com.projet.citronix.Dto.Request.ChampRequestDTO;
 import com.projet.citronix.Dto.Response.ChampResponseDTO;
+import com.projet.citronix.Exception.FermeNomTrouverException;
 import com.projet.citronix.Exception.NombreDeChampsMaximumDepasseException;
 import com.projet.citronix.Exception.SuperficieExceededException;
 import com.projet.citronix.Mapper.ChampMapper;
 import com.projet.citronix.Repository.ChampRepository;
 import com.projet.citronix.Repository.FermeRepository;
+import com.projet.citronix.Service.Interface.IChampService;
 import com.projet.citronix.entity.Champ;
 
 import com.projet.citronix.entity.Ferme;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,8 +19,9 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@AllArgsConstructor
 @Service
-public class ChampService {
+public class ChampService  implements IChampService {
 
     @Autowired
     private ChampRepository champRepository;
@@ -28,9 +32,10 @@ public class ChampService {
     @Autowired
     private ChampMapper champMapper;
 
+    @Override
     public ChampResponseDTO ajouterChamp(@Valid ChampRequestDTO champRequestDTO) {
         Ferme ferme = fermeRepository.findById(champRequestDTO.getFermeId())
-                .orElseThrow(() -> new IllegalArgumentException("Ferme introuvable avec l'ID : " + champRequestDTO.getFermeId()));
+                .orElseThrow(() -> new FermeNomTrouverException("Ferme introuvable avec l'ID : " + champRequestDTO.getFermeId()));
 
         double superficieTotaleFerme = ferme.getSuperficie();
         double superficieTotaleChamps = ferme.getChamps().stream()
@@ -56,6 +61,7 @@ public class ChampService {
     }
 
 
+    @Override
     public ChampResponseDTO updateChamp(Long id,  ChampRequestDTO champRequestDTO) {
         Champ existingChamp = champRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Champ introuvable avec l'ID : " + id));
@@ -82,12 +88,14 @@ public class ChampService {
         return champMapper.toResponseDTO(existingChamp);
     }
 
+    @Override
     public void deleteChamp(Long id) {
         Champ champ = champRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Champ introuvable avec l'ID : " + id));
 
         champRepository.delete(champ);
     }
+    @Override
 
     public List<ChampResponseDTO> getAllChamps() {
         List<Champ> champs = champRepository.findAll();

@@ -1,5 +1,7 @@
 package com.projet.citronix.Dto.Request;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -8,6 +10,8 @@ import java.time.LocalDate;
 
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class FermeRequestDTO {
     private Long id;
     @NotNull(message = "Le nom de la ferme est requis.")

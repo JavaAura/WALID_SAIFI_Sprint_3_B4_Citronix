@@ -3,7 +3,8 @@ import com.projet.citronix.Dto.Request.VenteRequestDTO;
 import com.projet.citronix.Dto.Response.VenteReponseDTO;
 import com.projet.citronix.Exception.RecolteNonTrouveeException;
 import com.projet.citronix.Exception.VenteNotExitException;
-import com.projet.citronix.Service.VenteService;
+
+import com.projet.citronix.Service.Interface.IVenteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +17,7 @@ import java.util.List;
 public class VenteController {
 
     @Autowired
-    private VenteService venteService;
+    private IVenteService venteService;
 
 
     private HashMap<String, Object> createMessage(String message, Object data, int status) {
